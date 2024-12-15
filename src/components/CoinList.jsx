@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {fetchCoinListData} from '../services/CMCApiService'
 import CoinSummary from './CoinSummary'
 
+const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
+
 const getTextColor = (percentageChange) => {
     return percentageChange > 0 ? 'green' : 'red';
 }
@@ -22,7 +24,7 @@ const CoinList = () => {
         };
         getData();
 
-        const interval = setInterval(getData, 30000)
+        const interval = setInterval(getData, RELOAD_INTERVAL)
 
         return () => {
             clearInterval(interval);
