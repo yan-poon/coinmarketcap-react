@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import {fetchCoinListData} from '../services/CMCApiService'
 import CoinSummary from './CoinSummary'
-
-const fetchCoinData = async (page=1) => {
-    const limit = 20;
-    const startAt = (page - 1) * limit + 1;
-    try {
-        const response = await fetch(`https://one-charlottews-apim.azure-api.net/finance/api/coinmarketcap/v1/cryptocurrency/listings/latest?limit=${limit}&start=${startAt}`, {
-            method: 'GET'
-        });
-        const data = await response.json();
-        return data["data"];
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
 
 const getTextColor = (percentageChange) => {
     return percentageChange > 0 ? 'green' : 'red';
@@ -29,7 +16,7 @@ const CoinList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         const getData = async () => {
-            const coinData = await fetchCoinData(currentPage);
+            const coinData = await fetchCoinListData(currentPage);
             setCoins(coinData);
             setLastUpdateTime(new Date().toLocaleTimeString());
         };
