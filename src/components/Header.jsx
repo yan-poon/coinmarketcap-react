@@ -9,7 +9,7 @@ function Header() {
         navigate('/coins');
     };
     return (
-        <header onClick={handleHeaderClick} style={{ cursor: 'pointer' }}>
+        <header onClick={handleHeaderClick}>
             <h1>One CharlotteWS Crypto</h1>
         </header>
     );

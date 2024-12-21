@@ -1,19 +1,30 @@
 /* App.css */
 
 /* Base styles */
-body {
-  font-family: Arial, sans-serif;
+body, html {
+  height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
   box-sizing: border-box;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 header {
-  background-color: #333;
+  background-color: purple;
   color: white;
   padding: 10px 20px;
-  text-align: center;
+  text-align: start;
   cursor: pointer;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 header h1 {
@@ -21,17 +32,19 @@ header h1 {
 }
 
 footer {
-  background-color: #333;
+  background-color: purple;
   color: white;
   padding: 10px 20px;
   text-align: center;
   position: fixed;
-  width: 100%;
   bottom: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .container {
-  padding: 20px;
+  flex: 1;
+  padding: 80px 20px 60px; /* Adjust padding to account for fixed header and footer */
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -77,7 +90,7 @@ button:disabled {
   }
 
   .container {
-      padding: 10px;
+      padding: 80px 10px 60px; /* Adjust padding for smaller screens */
   }
 
   table, thead, tbody, th, td, tr {
