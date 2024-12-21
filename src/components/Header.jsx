@@ -1,10 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+    const navigate = useNavigate();
+
+    const handleHeaderClick = () => {
+        navigate('/coins');
+    };
     return (
-        <header>
-            <h1>CoinMarketCap on React</h1>
-            <p>Powered by CoinMarketCap API</p>
+        <header onClick={handleHeaderClick} style={{ cursor: 'pointer' }}>
+            <h1>One CharlotteWS Crypto</h1>
         </header>
     );
 };
