@@ -32,7 +32,7 @@ const CoinNews = ({coinSymbol=""}) => {
             const texts=coinSymbol.split("+")
             title=`Latest News of ${texts[0]} (${texts[1]})`;
         }
-        return (<div>
+        return (<div className="content-container">
             <h2>{title}</h2>
             <ul>
                 {coinNewsData.map((coinNews) => (

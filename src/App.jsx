@@ -11,14 +11,16 @@ function App() {
     <Router>
       <div>
         <Header />
+        <div className="container">
         <Routes>
           <Route path="/" element={<CoinList />} />
           <Route path="/coins" element={<CoinList />} />
           <Route path="/coins/:coinId" element={<CoinSummary />} />
           <Route path="*" element={<CoinList />} />
         </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </Router>
 
   );
