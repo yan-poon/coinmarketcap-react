@@ -1,0 +1,49 @@
+/* CoinQuote.css */
+
+.coin-quote {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.coin-quote h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.coin-quote h3 {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+.rank-circle {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px; /* Rounded border */
+    border: 2px solid purple; /* Border color */
+    color: purple; /* Text color */
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .coin-quote {
+        padding: 10px;
+    }
+
+    .coin-quote h2 {
+        font-size: 1.5em;
+    }
+
+    .coin-quote h3 {
+        font-size: 1em;
+    }
+
+    .rank-circle {
+        padding: 3px 8px;
+        font-size: 1em;
+    }
+}

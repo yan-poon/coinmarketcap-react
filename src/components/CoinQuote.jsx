@@ -1,12 +1,13 @@
 import React from 'react';
 import { getDirectionTriangle, getTextColor, getFormattedPrice, getFormattedIntegerString } from '../services/UiItemService';
+import '../css/CoinQuote.css';
 
-const CoinQuote = ({coinQuoteData,lastUpdateTime}) => {
+const CoinQuote = ({ coinQuoteData, lastUpdateTime }) => {
     if (!coinQuoteData) {
         return <p>Loading...</p>
     } else {
-        return (<div>
-            <h2>{coinQuoteData.name} {coinQuoteData.symbol} <span style={{ color: getTextColor(coinQuoteData.quote.USD.percent_change_24h) }}>{getDirectionTriangle(coinQuoteData.quote.USD.percent_change_24h)} {coinQuoteData.quote.USD.percent_change_24h.toFixed(2)}% 24H</span> </h2>
+        return (<div className="coin-quote">
+            <h2>{coinQuoteData.name} {coinQuoteData.symbol} <span className="rank-circle">#{coinQuoteData.cmc_rank}</span><span style={{ color: getTextColor(coinQuoteData.quote.USD.percent_change_24h) }}>{getDirectionTriangle(coinQuoteData.quote.USD.percent_change_24h)} {coinQuoteData.quote.USD.percent_change_24h.toFixed(2)}% 24H</span> </h2>
             <h2>${getFormattedPrice(coinQuoteData.quote.USD.price)}</h2>
             <h3>Market cap: {getFormattedIntegerString(coinQuoteData.quote.USD.market_cap)}</h3>
             <h3>Volume (24h): {getFormattedIntegerString(coinQuoteData.quote.USD.volume_24h)}</h3>
