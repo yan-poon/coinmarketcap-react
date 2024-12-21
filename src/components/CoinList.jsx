@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {fetchCoinListData} from '../services/CMCApiService'
 import { getDirectionTriangle, getTextColor, getFormattedPrice, getFormattedIntegerString } from '../services/UiItemService';
 import CoinNews from './CoinNews';
+import '../css/CoinList.css';
 
 const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
 
@@ -72,15 +73,17 @@ const CoinList = () => {
                     </tr>))}
                 </tbody>
                 </table>
-                <div>
+                <div style={{ marginTop: '20px' }}>
                 <span>Last updated at {lastUpdateTime}</span>
+                   <span style={{ marginTop: '10px' }}>
                     <button onClick={handlePreviousPage} disabled={currentPage === 1}>
                         Previous
                     </button>
-                    <span> Page {currentPage} </span>
+                    <span style={{ margin: '0 10px' }}> Page {currentPage} </span>
                     <button onClick={handleNextPage}>
                         Next
                     </button>
+                    </span>
                 </div>
                 <CoinNews coinSymbol={""} />
             </div>
