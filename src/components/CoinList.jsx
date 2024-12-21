@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {fetchCoinListData} from '../services/CMCApiService'
 import { getDirectionTriangle, getTextColor, getFormattedPrice, getFormattedIntegerString } from '../services/UiItemService';
+import CoinNews from './CoinNews';
 
 const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
 
@@ -81,7 +82,9 @@ const CoinList = () => {
                 </tbody>
                 </table>
                 <p>Last updated at {lastUpdateTime}</p>
+                <CoinNews symbol={""} count={20} page={0} />
             </div>
+            
         )
     }
 

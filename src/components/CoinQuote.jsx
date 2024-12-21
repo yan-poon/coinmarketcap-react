@@ -1,28 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { fetchCoinQuoteData } from '../services/CMCApiService';
+import React from 'react';
 import { getDirectionTriangle, getTextColor, getFormattedPrice, getFormattedIntegerString } from '../services/UiItemService';
 
-const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
-
-const CoinQuote = ({coinId}) => {
-    const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString());
-    const [coinQuoteData, setcoinQuoteData] = useState(null);
-
-    useEffect(() => {
-        const getcoinQuoteData = async (coinId) => {
-            const data = await fetchCoinQuoteData(coinId);
-            setcoinQuoteData(data[`${coinId}`]);
-            setLastUpdateTime(new Date().toLocaleTimeString());
-        };
-        getcoinQuoteData(coinId);
-
-        const interval = setInterval(getcoinQuoteData, RELOAD_INTERVAL)
-
-        return () => {
-            clearInterval(interval);
-        }
-    }, [coinId])
-
+const CoinQuote = ({coinQuoteData,lastUpdateTime}) => {
     if (!coinQuoteData) {
         return <p>Loading...</p>
     } else {

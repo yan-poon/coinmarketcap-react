@@ -14,9 +14,9 @@ export const fetchCoinListData = async (page=1) => {
     }
 }
 
-export const fetchCoinQuoteData = async (id) => {
+export const fetchCoinQuoteData = async (coinId) => {
     try {
-        const response = await fetch(`${BASE_URL}/v2/cryptocurrency/quotes/latest?id=${id}`, {
+        const response = await fetch(`${BASE_URL}/v2/cryptocurrency/quotes/latest?id=${coinId}`, {
             method: 'GET'
         });
         const data = await response.json();

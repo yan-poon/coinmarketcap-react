@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { fetchCoinNewsData } from '../services/NewsApiService';
 
-const CoinNews = () => {
-    const { coinId } = useParams();
+const CoinNews = ({ symbol, count, page }) => {
     const [coinNewsData, setcoinNewsData] = useState([]);
-    
+
     useEffect(() => {
-        const getCoinNewsData = async () => {
-
+        const getCoinNewsData = async (count, page, symbol) => {
+            if (!symbol) {
+                symbol = ""
+            }
+            const data = await fetchCoinNewsData(count, page, symbol);
+            setcoinNewsData(data);
         };
-        getCoinNewsData();
+        getCoinNewsData(count, page, symbol);
 
-    }, [coinId])
+    }, [page])
 
-    if (!coinNewsData.length) {
+    if (!coinNewsData) {
         return <p>Loading...</p>
     } else {
         return (<div>
-            <p>Coin News works!</p>
+            <ul>
+                {coinNewsData.map((coinNews) => (
+                    <li key={coinNewsData.indexOf(coinNews)} style={{ cursor: 'pointer' }} onClick={() => window.open(coinNews.url, '_blank')}>
+                        <h3>{coinNews.name}</h3>
+                        <p>{coinNews.description}</p>
+                        <p>Click for Details</p>
+                    </li>))}
+            </ul>
         </div>)
     }
 };
