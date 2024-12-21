@@ -41,7 +41,7 @@ const CoinNews = ({ coinSymbol = "" }) => {
             <h2>{title}</h2>
             <ul>
                 {coinNewsData.map((coinNews) => (
-                    <li key={coinNewsData.indexOf(coinNews)} style={{ cursor: 'pointer' }} onClick={() => window.open(coinNews.url, '_blank')}>
+                    <li key={coinNewsData.indexOf(coinNews)} onClick={() => window.open(coinNews.url, '_blank')}>
                         <h3>{coinNews.name}</h3>
                         <p>{coinNews.description}</p>
                         <p className="news-footer"><span>{formatDate(coinNews.datePublished)}</span><span className="details">Click for Details</span></p>

@@ -45,6 +45,7 @@ const CoinList = () => {
     } else {
         return (
             <div>
+                <h2>Cryptocurrency Price</h2>
                 <table>
                     <thead>
                         <tr>
