@@ -30,7 +30,7 @@ const CoinNews = ({coinSymbol=""}) => {
         var title="Latest news of Cryptocurrency";
         if(coinSymbol){
             const texts=coinSymbol.split("+")
-            title=`Latest News of ${texts[0]} (${texts[1]}})`;
+            title=`Latest News of ${texts[0]} (${texts[1]})`;
         }
         return (<div>
             <h2>{title}</h2>

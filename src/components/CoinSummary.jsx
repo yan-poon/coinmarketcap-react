@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchCoinQuoteData } from '../services/CMCApiService';
 import CoinQuote from './CoinQuote';
 import CoinNews from './CoinNews';
+import '../css/CoinSummary.css';
 
 const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
 
@@ -16,7 +17,7 @@ const CoinSummary = () => {
             const data = await fetchCoinQuoteData(coinId);
             setCoinQuoteData(data[`${coinId}`]);
             setLastUpdateTime(new Date().toLocaleTimeString());
-            setCoinSymbol(data[`${coinId}`].symbol+"+"+data[`${coinId}`].name);
+            setCoinSymbol(data[`${coinId}`].symbol + "+" + data[`${coinId}`].name);
         };
         getcoinQuoteData();
         const interval = setInterval(getcoinQuoteData, RELOAD_INTERVAL)
@@ -29,9 +30,12 @@ const CoinSummary = () => {
 
     if (coinQuoteData) {
         return (
-            <div>
+            <div className="coin-news">
                 <CoinQuote coinQuoteData={coinQuoteData} lastUpdateTime={lastUpdateTime} />
-                <CoinNews coinSymbol={coinSymbol} /></div>
+                <div className="coin-news">
+                    <CoinNews coinSymbol={coinSymbol} />
+                </div>
+            </div>
         )
     }
 

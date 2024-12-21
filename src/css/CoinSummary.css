@@ -1,0 +1,54 @@
+/* CoinSummary.css */
+
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.coin-summary {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.coin-summary h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.coin-summary p {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+.coin-summary .last-updated {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 20px;
+}
+
+.coin-news {
+    margin-top: 30px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .coin-summary {
+        padding: 10px;
+    }
+
+    .coin-summary h1 {
+        font-size: 1.5em;
+    }
+
+    .coin-summary p {
+        font-size: 1em;
+    }
+
+    .coin-summary .last-updated {
+        font-size: 0.8em;
+    }
+}
