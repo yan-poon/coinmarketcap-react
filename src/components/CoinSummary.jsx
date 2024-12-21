@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 
-const CoinSummary = ({coin}) => {
+const CoinSummary = () => {
+    const {coinId} = useParams();
+    const [coinData, setCoinData] = useState(null);
+
+    useEffect(() => {
+        const getCoinData = async () => {
+            // fetch data from API
+        };
+        getCoinData();
+    })
     return (
         <div>
-            {coin.symbol} {coin.quote.USD.price.toFixed(4)}
+            <p>Coin Summary Page Work! coinId: {coinId}</p>
         </div>
     );
 };
