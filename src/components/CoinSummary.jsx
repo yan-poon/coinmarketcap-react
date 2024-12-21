@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchCoinQuoteData } from '../services/CMCApiService';
+import { fetchCoinQuoteData, fetchCoinMetadata } from '../services/CMCApiService';
 import CoinQuote from './CoinQuote';
 import CoinNews from './CoinNews';
 import '../css/CoinSummary.css';
+import CoinMetadata from './CoinMetadata';
 
 const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
 
@@ -12,6 +13,7 @@ const CoinSummary = () => {
     const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString());
     const [coinQuoteData, setCoinQuoteData] = useState(null);
     const [coinSymbol, setCoinSymbol] = useState("");
+    const [coinMetadata, setCoinMetadata] = useState(null);
     useEffect(() => {
         const getcoinQuoteData = async () => {
             const data = await fetchCoinQuoteData(coinId);
@@ -19,7 +21,12 @@ const CoinSummary = () => {
             setLastUpdateTime(new Date().toLocaleTimeString());
             setCoinSymbol(data[`${coinId}`].symbol + "+" + data[`${coinId}`].name);
         };
+        const getcoinMetadata = async () => {
+            const data = await fetchCoinMetadata(coinId);
+            setCoinMetadata(data[`${coinId}`]);
+        };
         getcoinQuoteData();
+        getcoinMetadata();
         const interval = setInterval(getcoinQuoteData, RELOAD_INTERVAL)
 
         return () => {
@@ -28,11 +35,16 @@ const CoinSummary = () => {
     }, [coinId])
 
 
-    if (coinQuoteData) {
+    if (!coinMetadata){
+        return <p>Loading...</p>;
+    }else {
         return (
-            <div className="coin-news">
-                <CoinQuote coinQuoteData={coinQuoteData} lastUpdateTime={lastUpdateTime} />
-                <div className="coin-news">
+            <div className="coin-summary">
+                <div className="left-column">
+                    <CoinQuote coinQuoteData={coinQuoteData} lastUpdateTime={lastUpdateTime} />
+                    <CoinMetadata coinMetadata={coinMetadata} />
+                </div>
+                <div className="right-column">
                     <CoinNews coinSymbol={coinSymbol} />
                 </div>
             </div>

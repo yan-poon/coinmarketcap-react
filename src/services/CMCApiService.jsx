@@ -25,3 +25,15 @@ export const fetchCoinQuoteData = async (coinId) => {
         console.error('Error:', error);
     }
 }
+
+export const fetchCoinMetadata = async (coinId) => {
+    try {
+        const response = await fetch(`${BASE_URL}/v2/cryptocurrency/info?id=${coinId}`, {
+            method: 'GET'
+        });
+        const data = await response.json();
+        return data["data"];
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
