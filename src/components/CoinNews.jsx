@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCoinNewsData } from '../services/NewsApiService';
+import '../css/CoinNews.css';
 
 const CoinNews = ({coinSymbol=""}) => {
     const [coinNewsData, setcoinNewsData] = useState([]);
@@ -26,13 +27,19 @@ const CoinNews = ({coinSymbol=""}) => {
     if (!coinNewsData) {
         return <p>Loading...</p>
     } else {
+        var title="Latest news of Cryptocurrency";
+        if(coinSymbol){
+            const texts=coinSymbol.split("+")
+            title=`Latest News of ${texts[0]} (${texts[1]}})`;
+        }
         return (<div>
+            <h2>{title}</h2>
             <ul>
                 {coinNewsData.map((coinNews) => (
                     <li key={coinNewsData.indexOf(coinNews)} style={{ cursor: 'pointer' }} onClick={() => window.open(coinNews.url, '_blank')}>
                         <h3>{coinNews.name}</h3>
                         <p>{coinNews.description}</p>
-                        <p>Click for Details</p>
+                        <p className="details">Click for Details</p>
                     </li>))}
             </ul>
             <div>
