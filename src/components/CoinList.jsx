@@ -44,15 +44,6 @@ const CoinList = () => {
     } else {
         return (
             <div>
-                <div>
-                    <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-                        Previous
-                    </button>
-                    <span> Page {currentPage} </span>
-                    <button onClick={handleNextPage}>
-                        Next
-                    </button>
-                </div>
                 <table>
                     <thead>
                         <tr>
@@ -81,8 +72,17 @@ const CoinList = () => {
                     </tr>))}
                 </tbody>
                 </table>
-                <p>Last updated at {lastUpdateTime}</p>
-                <CoinNews symbol={""} count={20} page={0} />
+                <div>
+                <span>Last updated at {lastUpdateTime}</span>
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+                    <span> Page {currentPage} </span>
+                    <button onClick={handleNextPage}>
+                        Next
+                    </button>
+                </div>
+                <CoinNews coinSymbol={""} />
             </div>
             
         )

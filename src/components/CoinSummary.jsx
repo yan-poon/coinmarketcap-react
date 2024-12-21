@@ -16,11 +16,9 @@ const CoinSummary = () => {
             const data = await fetchCoinQuoteData(coinId);
             setCoinQuoteData(data[`${coinId}`]);
             setLastUpdateTime(new Date().toLocaleTimeString());
+            setCoinSymbol(data[`${coinId}`].symbol+"+"+data[`${coinId}`].name);
         };
         getcoinQuoteData();
-        if(coinQuoteData){
-            setCoinSymbol(coinQuoteData.symbol);
-        }
         const interval = setInterval(getcoinQuoteData, RELOAD_INTERVAL)
 
         return () => {
@@ -33,7 +31,7 @@ const CoinSummary = () => {
         return (
             <div>
                 <CoinQuote coinQuoteData={coinQuoteData} lastUpdateTime={lastUpdateTime} />
-                <CoinNews symbol={coinSymbol} page={0} count={20} /></div>
+                <CoinNews coinSymbol={coinSymbol} /></div>
         )
     }
 
