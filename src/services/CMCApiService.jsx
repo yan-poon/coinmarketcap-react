@@ -13,3 +13,15 @@ export const fetchCoinListData = async (page=1) => {
         console.error('Error:', error);
     }
 }
+
+export const fetchCoinQuoteData = async (id) => {
+    try {
+        const response = await fetch(`${BASE_URL}/v2/cryptocurrency/quotes/latest?id=${id}`, {
+            method: 'GET'
+        });
+        const data = await response.json();
+        return data["data"];
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}

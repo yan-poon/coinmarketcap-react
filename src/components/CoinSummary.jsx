@@ -1,21 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import CoinQuote from './CoinQuote';
+import CoinNews from './CoinNews';
+
+const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
 
 const CoinSummary = () => {
-    const {coinId} = useParams();
-    const [coinData, setCoinData] = useState(null);
+    const { coinId } = useParams();
 
-    useEffect(() => {
-        const getCoinData = async () => {
-            // fetch data from API
-        };
-        getCoinData();
-    })
-    return (
-        <div>
-            <p>Coin Summary Page Work! coinId: {coinId}</p>
-        </div>
-    );
+    return (<div>
+        <CoinQuote coinId={coinId} />
+        <CoinNews coinId={coinId} />
+    </div>)
+
 };
 
 export default CoinSummary;

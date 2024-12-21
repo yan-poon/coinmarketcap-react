@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {fetchCoinListData} from '../services/CMCApiService'
-import CoinSummary from './CoinSummary'
+import { getDirectionTriangle, getTextColor, getFormattedPrice, getFormattedIntegerString } from '../services/UiItemService';
 
 const RELOAD_INTERVAL = process.env.REACT_APP_CMC_RELOAD_INTERVAL;
-
-const getTextColor = (percentageChange) => {
-    return percentageChange > 0 ? 'green' : 'red';
-}
-
-const getDirectionTriangle = (percentageChange) => {
-    return percentageChange > 0 ? '▲' : '▼';
-}
 
 const CoinList = () => {
     const [coins, setCoins] = useState([]);
     const [lastUpdateTime, setLastUpdateTime] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const navigate= useNavigate();
+
     useEffect(() => {
         const getData = async () => {
-            const coinData = await fetchCoinListData(currentPage);
-            setCoins(coinData);
+            const coinsData = await fetchCoinListData(currentPage);
+            setCoins(coinsData);
             setLastUpdateTime(new Date().toLocaleTimeString());
         };
         getData();
@@ -39,12 +34,15 @@ const CoinList = () => {
         setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : 1));
     };
 
+    const handleRowClick = (coinId) => {
+        navigate(`/coins/${coinId}`);
+    }
+
     if (!coins.length) {
         return <p>Loading...</p>
     } else {
         return (
             <div>
-                <p>Last updated at {lastUpdateTime}</p>
                 <div>
                     <button onClick={handlePreviousPage} disabled={currentPage === 1}>
                         Previous
@@ -69,19 +67,20 @@ const CoinList = () => {
                     </thead>
                 <tbody>
                 {coins.map((coin) => (
-                    <tr key={coin.id}>
+                    <tr key={coin.id} onClick={()=> handleRowClick(coin.id)} style={{ cursor: 'pointer' }}>
                                 <td>{coin.cmc_rank}</td>
                                 <td>{coin.symbol}</td>
-                                <td>${coin.quote.USD.price>=1? coin.quote.USD.price.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 }) : coin.quote.USD.price.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 8 })}</td>
+                                <td>${getFormattedPrice(coin.quote.USD.price)}</td>
                                 <td style={{color:getTextColor(coin.quote.USD.percent_change_1h)}}>{getDirectionTriangle(coin.quote.USD.percent_change_1h)} {coin.quote.USD.percent_change_1h.toFixed(2)}</td>
                                 <td style={{color:getTextColor(coin.quote.USD.percent_change_24h)}}>{getDirectionTriangle(coin.quote.USD.percent_change_24h)} {coin.quote.USD.percent_change_24h.toFixed(2)}</td>
                                 <td style={{color:getTextColor(coin.quote.USD.percent_change_7d)}}>{getDirectionTriangle(coin.quote.USD.percent_change_7d)} {coin.quote.USD.percent_change_7d.toFixed(2)}</td>
                                 <td style={{color:getTextColor(coin.quote.USD.percent_change_30d)}}>{getDirectionTriangle(coin.quote.USD.percent_change_30d)} {coin.quote.USD.percent_change_30d.toFixed(2)}</td>
-                                <td>${Math.round(coin.quote.USD.market_cap).toLocaleString()}</td>
+                                <td>${getFormattedIntegerString(coin.quote.USD.market_cap)}</td>
 
                     </tr>))}
                 </tbody>
                 </table>
+                <p>Last updated at {lastUpdateTime}</p>
             </div>
         )
     }
