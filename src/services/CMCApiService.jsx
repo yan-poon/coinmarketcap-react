@@ -37,3 +37,15 @@ export const fetchCoinMetadata = async (coinId) => {
         console.error('Error:', error);
     }
 }
+
+export const fetchGlobalMetricsData = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/v1/global-metrics/quotes/latest`, {
+            method: 'GET'
+        });
+        const data = await response.json();
+        return data["data"];
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}

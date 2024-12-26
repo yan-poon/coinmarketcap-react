@@ -14,5 +14,10 @@ export const getFormattedPrice = (price) => {
 }
 
 export const getFormattedIntegerString = (marketCap) => {
+    if(marketCap>1000000000000){
+        return (marketCap/1000000000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'T'
+    }else if(marketCap>1000000000){
+        return (marketCap/1000000000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + 'B'
+    }
     return Math.round(marketCap).toLocaleString()
 }
