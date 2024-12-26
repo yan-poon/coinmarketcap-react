@@ -1,18 +1,46 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import Profile from './Profile';
+import '../css/Header.css'; // Import the CSS file
 
 function Header() {
-
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleHeaderClick = () => {
         navigate('/coins');
     };
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
-        <header onClick={handleHeaderClick}>
-            <h1>One CharlotteWS Crypto</h1>
+        <header className="header">
+            <div className="header-logo" onClick={handleHeaderClick}>
+                <h1>One CharlotteWS Crypto</h1>
+                <div className="menu-icon" onClick={toggleMenu}>
+                    &#9776; {/* Hamburger menu icon */}
+                </div>
+            </div>
+            <nav className={`navbar ${isMenuOpen ? 'open' : ''}`}>
+                <ul className="navbar-links">
+                    <li>
+                        <Link to="/markets">Markets</Link>
+                    </li>
+                    <li>
+                        <Link to="/news">News</Link>
+                    </li>
+                    <li>
+                        <Link to="/portfolio">Portfolio</Link>
+                    </li>
+                </ul>
+                <div className="navbar-profile">
+                    <Profile />
+                </div>
+            </nav>
         </header>
     );
-};
+}
 
 export default Header;
