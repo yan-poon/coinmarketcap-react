@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Profile from './Profile';
-import '../css/Header.css'; // Import the CSS file
+import '../css/Header.css';
 
-function Header({user, isAuthenticated, isLoading}) {
+function Header() {
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -35,9 +34,6 @@ function Header({user, isAuthenticated, isLoading}) {
                         <Link to="/portfolio">Portfolio</Link>
                     </li>
                 </ul>
-                <div className="navbar-profile">
-                    <Profile user={user} isAuthenticated={isAuthenticated} isLoading={isLoading} />
-                </div>
             </nav>
         </header>
     );
